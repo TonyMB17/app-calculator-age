@@ -926,6 +926,178 @@
     }
   }
 }
+/* Taller phones can trade density for clearer grouping and larger text. */
+@layer compact {
+  @media screen and (min-width: 360px) and (max-width: 760px) and (min-height: 780px) {
+    .wrap {
+      width: calc(100% - 32px);
+    }
+    .site-header {
+      min-height: 76px;
+    }
+    .brand {
+      font-size: 19px;
+      gap: 12px;
+    }
+    .brand-mark {
+      width: 60px;
+      height: 60px;
+    }
+    .brand-subtitle {
+      font-size: 11px;
+    }
+    .calculator-grid {
+      gap: 16px;
+    }
+    .empty-state {
+      display: flex;
+      min-height: 150px;
+      padding: 12px 4px;
+    }
+    .empty-state svg {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 12px;
+    }
+    .empty-state h3 {
+      font-size: 17px;
+    }
+    .empty-state p {
+      font-size: 13px;
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+    .empty-state span {
+      display: none;
+    }
+    .calculator-grid .card {
+      padding: 18px;
+      border-radius: 16px;
+    }
+    #age-form {
+      gap: 12px;
+    }
+    .gestation-grid {
+      gap: 12px;
+    }
+    label,
+    .gestation-grid label {
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+    input,
+    select,
+    input[type='date'] {
+      height: 50px;
+      min-height: 50px;
+      padding: 10px 8px;
+    }
+    #gestation-help {
+      margin-top: 8px;
+      font-size: 11px;
+    }
+    .primary {
+      min-height: 50px;
+      margin-top: 2px;
+      font-size: 15px;
+    }
+    .age-block {
+      padding: 18px 16px;
+      margin-top: 0;
+      border-radius: 10px;
+    }
+    .result-label {
+      font-size: 12px;
+      letter-spacing: 0.03em;
+    }
+    .age-value {
+      font-size: 34px;
+      margin-top: 10px;
+      letter-spacing: -0.03em;
+    }
+    .calendar-age {
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .result-metrics {
+      margin-top: 14px;
+      column-gap: 18px;
+    }
+    .result-metrics dt {
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .result-metrics dd {
+      font-size: 15px;
+      line-height: 1.4;
+      margin-top: 4px;
+    }
+    .result-card .result-metrics > div {
+      padding: 9px 0;
+    }
+    .result-card .result-metrics > div:last-child {
+      padding-block: 12px;
+    }
+    .result-card .result-actions {
+      margin-top: 14px;
+    }
+    .result-card .result-actions #reset {
+      min-height: 48px;
+      font-size: 14px;
+    }
+    .clinical-note {
+      font-size: 11px;
+      padding: 12px 2px;
+      line-height: 1.5;
+    }
+    .bottom-bar {
+      column-gap: 16px;
+    }
+    .references > summary,
+    .bottom-bar footer {
+      font-size: 12px;
+    }
+  }
+}
+@layer compact {
+  @media screen and (min-width: 360px) and (max-width: 760px) and (min-height: 780px) and (max-height: 839px) {
+    .site-header {
+      min-height: 64px;
+    }
+    .calculator-grid .card {
+      padding: 14px;
+    }
+    #age-form {
+      gap: 8px;
+    }
+    .age-block {
+      padding-block: 14px;
+    }
+    .result-metrics {
+      margin-top: 10px;
+    }
+    .clinical-note {
+      padding-block: 8px;
+    }
+  }
+  @media screen and (min-width: 360px) and (max-width: 760px) and (min-height: 900px) {
+    .site-header {
+      min-height: 84px;
+    }
+    .calculator-grid .card {
+      padding: 22px;
+    }
+    #age-form {
+      gap: 16px;
+    }
+    .age-block {
+      padding-block: 22px;
+    }
+    .result-card .result-metrics > div {
+      padding-block: 12px;
+    }
+  }
+}
 @layer motion {
   .intro,
   .calculator-grid {

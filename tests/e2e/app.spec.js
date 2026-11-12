@@ -91,6 +91,10 @@ test('vista móvil sin scroll y controles visibles', async ({ page }) => {
     [320, 568],
     [375, 667],
     [390, 844],
+    [393, 852],
+    [390, 780],
+    [375, 812],
+    [430, 932],
   ]) {
     await page.setViewportSize({ width, height });
     await fillCase(page);
@@ -104,6 +108,20 @@ test('vista móvil sin scroll y controles visibles', async ({ page }) => {
     await expect(page.getByRole('button', { name: 'Nuevo cálculo' })).toBeInViewport();
     await expect(page.getByRole('link', { name: 'Designed by Tony' })).toBeInViewport();
   }
+});
+
+test('los celulares altos tienen controles y resultado más amplios', async ({ page }) => {
+  await page.setViewportSize({ width: 393, height: 852 });
+  await fillCase(page);
+  expect(
+    await page.locator('#weeks').evaluate((el) => el.getBoundingClientRect().height),
+  ).toBeGreaterThanOrEqual(50);
+  expect(
+    await page.locator('.age-value').evaluate((el) => parseFloat(getComputedStyle(el).fontSize)),
+  ).toBeGreaterThanOrEqual(32);
+  expect(
+    await page.locator('.form-card').evaluate((el) => parseFloat(getComputedStyle(el).paddingTop)),
+  ).toBeGreaterThanOrEqual(16);
 });
 
 test('teclado, reinicio y reducción de movimiento', async ({ page }) => {
