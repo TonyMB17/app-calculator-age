@@ -68,7 +68,7 @@ docs/VERIFICACION.md     Evidencia técnica y cambios posteriores
 
 ## Publicación
 
-La entrega local no está publicada ni tiene URL pública verificada. Crear un repositorio público (por ejemplo `calculadora-edad-corregida`), subir el proyecto a `main` y seleccionar **Settings → Pages → Source → GitHub Actions**. Ejecutar el workflow **Calidad y GitHub Pages** o realizar un push a `main`. Cuando finalice `deploy`, abrir y verificar el enlace real del entorno `github-pages`.
+El repositorio público es [TonyMB17/app-calculator-age](https://github.com/TonyMB17/app-calculator-age). En **Settings → Pages → Build and deployment → Source**, seleccionar **GitHub Actions**. No usar **Deploy from a branch**: esta aplicación necesita la compilación de Vite en `dist`; la raíz del repositorio contiene el código fuente sin compilar. El workflow **Calidad y GitHub Pages** se ejecuta al subir cambios a `main`. El sitio se publica en <https://tonymb17.github.io/app-calculator-age/>.
 
 El workflow ejecuta instalación reproducible, formato, pruebas, auditoría y build; publica solo `dist`. Las pull requests no despliegan. Solo el trabajo de despliegue tiene permisos de escritura de Pages y OIDC. Vite usa `base: './'`. Configurar protección de `main` para exigir controles. Para volver a una versión anterior, revertir el cambio y ejecutar nuevamente el workflow.
 
