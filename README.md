@@ -84,4 +84,4 @@ Referencias consultadas el 12/11/2026:
 - [AAP / HealthyChildren — Corrected Age For Preemies](https://www.healthychildren.org/English/ages-stages/baby/preemie/Pages/Corrected-Age-For-Preemies.aspx): corrección respecto de 40 semanas.
 - [Washington DCYF — Age Correction in Evaluation and Assessment](https://www.dcyf.wa.gov/sites/default/files/pdf/esit/AgeCorrect-PrematureGuide.pdf): guía revisada en junio de 2020, referencia del intervalo de 24 meses cronológicos.
 
-Pendiente: publicación real, revisión clínica local, pruebas con lector de pantalla y teléfonos físicos, y validación con 3–5 profesionales. No se han realizado sesiones de usabilidad ni se inventan sus resultados. Una auditoría axe sin infracciones no demuestra por sí sola cumplimiento integral WCAG 2.2 AA.
+Pendiente: revisión clínica local, pruebas con lector de pantalla y teléfonos físicos, y validación con 3–5 profesionales. No se han realizado sesiones de usabilidad ni se inventan sus resultados. Una auditoría axe sin infracciones no demuestra por sí sola cumplimiento integral WCAG 2.2 AA.
