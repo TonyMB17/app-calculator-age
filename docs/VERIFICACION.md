@@ -1,3 +1,11 @@
+# Actualización v1.1.0 — 12/11/2026
+
+Días opcionales (vacío equivale a cero adicionales, identificado en detalle y copia), selector agrupado de semanas, indicación sin corrección desde 37 semanas, logo USI y crédito del autor. La vista móvil principal usa revelado progresivo para mantener controles de 44 px e inputs de 16 px. Se comprueba el ajuste vertical en 320×568, 375×667 y 390×844; abrir detalles, errores o teclado puede requerir desplazamiento.
+
+Pruebas de esta actualización: 42 pruebas unitarias y 42 comprobaciones E2E aprobadas en Chromium, Firefox y WebKit; auditorías axe inicial y con resultado sin infracciones. Se comprobaron días omitidos y transparencia de la copia. El detector visual advirtió una jerarquía tipográfica plana al analizar HTML sin resolver los estilos por capas; la inspección real confirma título de escritorio de 42 px, resultado móvil de 25 px e inputs de 16 px. Se ajustaron los bordes laterales informativos a 1 px. Se volvió a revisar un PDF A4 con días omitidos: resultado, supuesto, método y referencias completos en una página. Bundle final: 8,38 KiB gzip de JS y CSS; auditoría de dependencias sin vulnerabilidades conocidas. No se ha probado en teléfonos físicos.
+
+La documentación que sigue corresponde a la entrega inicial; se conservan sus evidencias históricas. La regla anterior que exigía días fue reemplazada por instrucción explícita del usuario.
+
 # Verificación técnica — 12/11/2026
 
 Entrega local del método v1.0.0. Estas comprobaciones no constituyen validación clínica ni certificación de accesibilidad.

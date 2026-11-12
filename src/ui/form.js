@@ -18,10 +18,22 @@ export function setupForm() {
   const tag = document.querySelector('#result-tag');
   let active = null;
 
-  elements.weeks.min = LIMITS.minWeeks;
-  elements.weeks.max = LIMITS.maxWeeks;
   elements.days.min = LIMITS.minDays;
   elements.days.max = LIMITS.maxDays;
+  const mobile = matchMedia('(max-width: 760px)');
+  mobile.addEventListener('change', () => {
+    const details = content.querySelector('.result-details');
+    if (details) details.open = !mobile.matches;
+  });
+
+  function updateGestationStatus() {
+    const weeks = Number(elements.weeks.value);
+    document.querySelector('#gestation-status').textContent = !weeks
+      ? 'Selecciona las semanas de gestación.'
+      : weeks < 37
+        ? 'Prematuro: se aplica corrección de edad.'
+        : 'No prematuro: edad cronológica sin corrección.';
+  }
 
   function refreshToday() {
     const today = todayInLima();
@@ -48,6 +60,7 @@ export function setupForm() {
   }
 
   function invalidate(message = '') {
+    delete status.dataset.kind;
     active = null;
     copy.disabled = print.disabled = true;
     fallback.hidden = true;
@@ -60,10 +73,12 @@ export function setupForm() {
 
   elements.evaluation.value = refreshToday();
   updateDateHints();
+  updateGestationStatus();
   form.addEventListener('input', () => {
     if (active) invalidate('Los datos cambiaron. Vuelve a calcular');
     clearErrors();
     updateDateHints();
+    updateGestationStatus();
   });
   form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -92,13 +107,10 @@ export function setupForm() {
     copy.disabled = print.disabled = false;
     tag.textContent = 'Calculado';
     status.textContent = resultSummary(active);
+    status.dataset.kind = 'result';
     if (matchMedia('(max-width: 760px)').matches) {
       const heading = document.querySelector('#result-title');
       heading.focus({ preventScroll: true });
-      heading.scrollIntoView({
-        block: 'start',
-        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
-      });
     }
   });
   document.querySelector('#reset').addEventListener('click', () => {
@@ -108,6 +120,7 @@ export function setupForm() {
     tag.textContent = 'Por calcular';
     elements.evaluation.value = refreshToday();
     updateDateHints();
+    updateGestationStatus();
     elements.birth.focus();
   });
   copy.addEventListener('click', async () => {
@@ -116,7 +129,10 @@ export function setupForm() {
     const text = exportText(snapshot);
     try {
       await navigator.clipboard.writeText(text);
-      if (active === snapshot) status.textContent = 'Resultado copiado. Ya puedes pegarlo.';
+      if (active === snapshot) {
+        status.dataset.kind = 'feedback';
+        status.textContent = 'Resultado copiado. Ya puedes pegarlo.';
+      }
     } catch {
       if (active !== snapshot) return;
       copyText.value = text;

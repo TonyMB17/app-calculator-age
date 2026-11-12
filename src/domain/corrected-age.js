@@ -1,6 +1,6 @@
 import { addMonths, calendarDifference, parseDate, todayInLima } from './dates.js';
 
-export const METHOD_VERSION = '1.0.0';
+export const METHOD_VERSION = '1.1.0';
 // UI support limits; not clinical viability limits. Review with any local protocol.
 export const LIMITS = Object.freeze({
   minWeeks: 20,
@@ -34,6 +34,7 @@ export function validate(input, today = todayInLima()) {
     ['days', LIMITS.minDays, LIMITS.maxDays, 'los días adicionales'],
   ]) {
     const value = String(input[key] ?? '');
+    if (key === 'days' && value === '') continue;
     if (!value.trim()) errors[key] = `Ingresa ${label}; no se asume un valor desconocido.`;
     else if (!/^\d+$/.test(value) || Number(value) < min || Number(value) > max) {
       errors[key] =
@@ -48,14 +49,17 @@ export function calculate(input, today = todayInLima()) {
   if (Object.keys(errors).length) throw new RangeError(Object.values(errors).join(' '));
   const birth = parseDate(input.birth);
   const evaluation = parseDate(input.evaluation);
-  const gestational = Number(input.weeks) * 7 + Number(input.days);
+  const daysAssumed = input.days === '' || input.days == null;
+  const normalizedInput = { ...input, days: daysAssumed ? '0' : input.days };
+  const gestational = Number(input.weeks) * 7 + Number(normalizedInput.days);
   const chronological = evaluation - birth;
   const preterm = gestational < LIMITS.pretermDays;
   const correction = preterm ? LIMITS.termDays - gestational : 0;
   const equivalent = preterm ? birth + correction : null;
   const corrected = preterm ? chronological - correction : null;
   return {
-    input: { ...input },
+    input: normalizedInput,
+    daysAssumed,
     birth,
     evaluation,
     gestational,

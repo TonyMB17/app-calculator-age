@@ -28,9 +28,9 @@ npm audit --audit-level=moderate
 
 Las auditorías axe se ejecutan en procesos independientes: Firefox en este entorno Windows se cierra al inyectar axe desde el worker de Playwright, pero funciona con la API independiente. Se mantienen todas las auditorías y reglas en los tres motores. Las capturas se generan en `test-results/`.
 
-## Método v1.0.0
+## Método v1.1.0
 
-Los límites están centralizados en `src/domain/corrected-age.js`: 20–42 semanas completas y 0–6 días adicionales. Son límites operativos, no afirmaciones de viabilidad. Los días comienzan vacíos y no se asumen iguales a cero.
+Los límites están centralizados en `src/domain/corrected-age.js`: 20–42 semanas completas y 0–6 días adicionales. Son límites operativos, no afirmaciones de viabilidad. Los días son opcionales y comienzan vacíos: si se omiten, se usan semanas completas y 0 días adicionales, con esa suposición indicada en el detalle y la copia. Esta modificación de la versión 1.1.0 fue solicitada por el autor del proyecto.
 
 ```text
 gestación_días = semanas × 7 + días
@@ -55,7 +55,7 @@ La representación canónica son semanas completas, días restantes y total exac
 
 ## Flujo y privacidad
 
-Ingresar nacimiento, semanas, días y evaluación; pulsar **Calcular edad corregida** o Enter. Editar una entrada retira el resultado y deshabilita copia e impresión. **Nuevo cálculo** limpia nacimiento y gestación, restablece hoy en Lima y enfoca nacimiento.
+Ingresar nacimiento, semanas y evaluación; los días adicionales son opcionales. El selector ofrece primero 29–36 semanas y avisa cuándo no corresponde corrección por prematuridad. Después, pulsar **Calcular edad corregida** o Enter. Editar una entrada retira el resultado y deshabilita copia e impresión. **Nuevo cálculo** limpia nacimiento y gestación, restablece hoy en Lima y enfoca nacimiento.
 
 El resumen copiado incluye entradas, resultados, método y versión. Si falla el portapapeles, se ofrece texto seleccionable. La impresión incluye método y referencias, sin formulario ni botones; el navegador permite guardar PDF.
 
@@ -103,3 +103,9 @@ Referencias consultadas el 12/11/2026:
 - [Washington DCYF — Age Correction in Evaluation and Assessment](https://www.dcyf.wa.gov/sites/default/files/pdf/esit/AgeCorrect-PrematureGuide.pdf): revisión de junio de 2020; referencia para el límite operativo de 24 meses cronológicos.
 
 Pendiente: revisión clínica local, lector de pantalla, dispositivos físicos y validación de usabilidad con 3–5 profesionales. Tareas: calcular un caso, cambiar evaluación, copiar y empezar otro; metas propuestas de al menos 90 % de tareas sin ayuda, mediana menor de 30 segundos y facilidad percibida de 4/5. No se han realizado sesiones con participantes. El objetivo WCAG 2.2 AA no equivale a una certificación de accesibilidad completa.
+
+## Ajustes de interfaz v1.1.0
+
+Se utiliza el logo USI proporcionado por el autor, sin añadir afirmaciones de aval o certificación. El footer incluye «Designed by Tony» con enlace a https://github.com/TonyMB17.
+
+En móvil, fechas y gestación ocupan dos filas compactas. La vista principal presenta el cálculo y las acciones; el desglose se abre con «Ver detalle del cálculo». Se conserva el scroll natural al abrir los detalles, mostrar errores, copiar manualmente, aumentar el zoom o utilizar el teclado: no se recorta contenido ni se bloquea el desplazamiento. En impresión se expande el desglose completo.

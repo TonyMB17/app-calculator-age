@@ -22,7 +22,8 @@ try {
       days: '4',
       evaluation: '2026-03-26',
     })) {
-      await page.locator(`#${key}`).fill(value);
+      if (key === 'weeks') await page.locator('#weeks').selectOption(value);
+      else await page.locator(`#${key}`).fill(value);
     }
     await page.locator('button[type="submit"]').click();
   }

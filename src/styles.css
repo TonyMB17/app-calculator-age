@@ -1,4 +1,4 @@
-@layer base, layout, components, motion, print;
+@layer base, layout, components, compact, motion, print;
 
 @layer base {
   :root {
@@ -27,6 +27,7 @@
     line-height: 1.5;
   }
   button,
+  select,
   input,
   textarea {
     font: inherit;
@@ -303,7 +304,7 @@
     margin-top: 7px;
   }
   .error-summary {
-    border-left: 3px solid var(--error);
+    border-left: 1px solid var(--error);
     padding: 12px;
     color: var(--error);
     background: #fff5f4;
@@ -572,7 +573,7 @@
   }
   .interval-notice {
     background: var(--soft);
-    border-left: 3px solid var(--accent);
+    border-left: 1px solid var(--accent);
     padding: 18px;
   }
   .interval-notice h3 {
@@ -611,6 +612,307 @@
     }
     .result-actions #reset {
       margin-left: 0;
+    }
+  }
+}
+@layer compact {
+  .bottom-bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 0 12px;
+  }
+  .bottom-bar .references[open] {
+    grid-column: 1 / -1;
+  }
+  .bottom-bar footer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0;
+  }
+  .mobile-ref {
+    display: none;
+  }
+  .mobile-clinical-note {
+    display: none;
+  }
+  .result-explanation {
+    font-size: 13px;
+    margin-top: 8px;
+    color: var(--muted);
+  }
+  select {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    padding: 11px 10px;
+    border: 1px solid #879997;
+    border-radius: 8px;
+    background: white;
+    color: #243b3c;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+  }
+  select[aria-invalid='true'] {
+    border: 2px solid var(--error);
+  }
+  .brand-mark {
+    width: 76px;
+    height: 76px;
+    object-fit: contain;
+    border-radius: 0;
+  }
+  .gestation-status {
+    color: var(--accent);
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  .result-details > summary {
+    display: none;
+  }
+  .assumption-note {
+    color: var(--muted);
+    font-size: 12px;
+    margin: 8px 0;
+  }
+  footer a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  @media screen and (max-width: 760px) {
+    .wrap {
+      width: calc(100% - 24px);
+    }
+    .site-header {
+      min-height: 48px;
+      gap: 8px;
+      border: 0;
+    }
+    .brand {
+      font-size: 17px;
+      gap: 8px;
+    }
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+    }
+    .brand-subtitle {
+      font-size: 10px;
+    }
+    .privacy,
+    .form-card .section-heading,
+    .step,
+    .empty-state,
+    .result-card .section-heading p {
+      display: none;
+    }
+    .intro,
+    .result-card .section-heading,
+    .status[data-kind='result'] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+    .clinical-note {
+      display: block;
+      padding: 2px 0;
+      font-size: 10px;
+      line-height: 1.3;
+    }
+    .clinical-note svg,
+    .clinical-note p:not(.mobile-clinical-note) {
+      display: none;
+    }
+    .mobile-clinical-note {
+      display: block;
+    }
+    .calculator-grid {
+      gap: 8px;
+    }
+    .card {
+      padding: 10px 12px;
+      border-radius: 12px;
+      box-shadow: none;
+    }
+    #age-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 4px;
+      grid-template-areas: 'error error' 'birth evaluation' 'gestation gestation' 'submit submit';
+    }
+    #error-summary {
+      grid-area: error;
+      margin: 0;
+    }
+    #age-form > .field:not(.evaluation) {
+      grid-area: birth;
+    }
+    .evaluation {
+      grid-area: evaluation;
+    }
+    fieldset {
+      grid-area: gestation;
+      margin: 0;
+    }
+    fieldset legend {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+    .gestation-grid {
+      gap: 8px;
+    }
+    label,
+    .gestation-grid label {
+      font-size: 12px;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    input,
+    select,
+    input[type='date'] {
+      min-height: 44px;
+      height: 44px;
+      padding: 8px 5px;
+      font-size: 16px;
+    }
+    #birth-help,
+    #evaluation-help {
+      display: none;
+    }
+    #gestation-help {
+      font-size: 10px;
+      line-height: 1.3;
+      margin-top: 4px;
+    }
+    .gestation-status {
+      margin-top: 4px;
+      font-size: 11px;
+      line-height: 1.3;
+    }
+    .primary {
+      grid-area: submit;
+      margin: 0;
+      min-height: 44px;
+      padding: 8px 12px;
+    }
+    .section-heading {
+      margin-bottom: 4px;
+      align-items: center;
+    }
+    h2 {
+      font-size: 16px;
+    }
+    .result-tag {
+      margin-top: 0;
+    }
+    #result-content {
+      min-height: 0;
+    }
+    .age-block {
+      padding: 8px 10px;
+      margin: 4px 0 0;
+      border-radius: 8px;
+    }
+    .result-label {
+      font-size: 11px;
+      line-height: 1.3;
+    }
+    .age-value {
+      font-size: 25px;
+      margin-top: 4px;
+      line-height: 1.15;
+    }
+    .calendar-age {
+      margin-top: 4px;
+      font-size: 11px;
+    }
+    .calendar-age span {
+      display: inline;
+    }
+    .result-details > summary {
+      display: list-item;
+      padding: 10px 0;
+      min-height: 44px;
+      font-size: 12px;
+    }
+    .result-actions {
+      display: grid;
+      grid-template-columns: 1.3fr 0.8fr 1.1fr;
+      gap: 4px;
+      margin-top: 4px;
+      padding-top: 0;
+      border: 0;
+    }
+    .result-actions button {
+      min-height: 44px;
+      padding: 6px 2px;
+      font-size: 11px;
+    }
+    .result-actions #reset {
+      margin: 0;
+    }
+    #reset span {
+      display: none;
+    }
+    .assumption-note {
+      font-size: 10px;
+      line-height: 1.3;
+      margin: 4px 0;
+    }
+    .status {
+      font-size: 11px;
+      line-height: 1.3;
+      margin-top: 4px;
+    }
+    .references {
+      font-size: 12px;
+      margin-top: 4px;
+    }
+    .desktop-ref,
+    .bottom-bar footer span {
+      display: none;
+    }
+    .mobile-ref {
+      display: inline;
+    }
+    .bottom-bar .references {
+      margin-top: 0;
+      border-bottom: 0;
+    }
+    .bottom-bar footer {
+      font-size: 10px;
+    }
+    .references > summary {
+      padding: 10px 0;
+      min-height: 44px;
+      font-size: 11px;
+    }
+    footer {
+      padding-block: 0 max(4px, env(safe-area-inset-bottom));
+      font-size: 10px;
+      align-items: center;
+    }
+    footer a {
+      min-height: 44px;
+    }
+    .interval-notice {
+      padding: 8px;
+    }
+    .interval-notice h3 {
+      font-size: 14px;
+    }
+    .interval-notice p {
+      font-size: 11px;
+      margin-top: 4px;
     }
   }
 }
@@ -658,6 +960,9 @@
     margin: 15mm;
   }
   @media print {
+    .bottom-bar {
+      display: block;
+    }
     *,
     *::before,
     *::after {
@@ -679,6 +984,10 @@
     }
     .brand {
       color: #000;
+    }
+    .brand-mark {
+      width: 44px;
+      height: 44px;
     }
     .intro,
     .form-card,

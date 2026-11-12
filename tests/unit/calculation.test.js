@@ -86,7 +86,6 @@ describe('validación', () => {
     ['weeks', '43'],
     ['weeks', '32.4'],
     ['weeks', ''],
-    ['days', ''],
     ['days', '7'],
     ['days', '-1'],
     ['days', '1.5'],
@@ -100,5 +99,10 @@ describe('validación', () => {
   it('acepta los extremos operativos', () => {
     expect(validate(input({ weeks: '20', days: '0' }), today)).toEqual({});
     expect(validate(input({ weeks: '42', days: '6' }), today)).toEqual({});
+  });
+  it.each(['', undefined])('calcula solo con semanas cuando se omiten los días: %s', (days) => {
+    const result = calculate(input({ days }), today);
+    expect(result).toMatchObject({ correction: 56, corrected: 28, daysAssumed: true });
+    expect(result.input.days).toBe('0');
   });
 });

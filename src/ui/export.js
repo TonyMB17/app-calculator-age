@@ -13,6 +13,9 @@ export function exportText(r) {
     `EDAD CORREGIDA · Método v${METHOD_VERSION}`,
     `Nacimiento: ${formatDate(r.birth)}`,
     `Gestación al nacer: ${Number(r.input.weeks)} semanas y ${Number(r.input.days)} días`,
+    r.daysAssumed
+      ? 'Días adicionales no ingresados: cálculo con semanas completas y 0 días adicionales.'
+      : '',
     `Evaluación: ${formatDate(r.evaluation)}`,
     '',
     resultSummary(r),

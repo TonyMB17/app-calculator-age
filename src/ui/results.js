@@ -36,11 +36,13 @@ export function renderResult(container, r) {
     ${
       r.outsideInterval
         ? `<div class="interval-notice"><h3>${title}</h3><p>Revisa el protocolo de tu establecimiento. El cálculo matemático se conserva como dato secundario y no es una recomendación clínica.</p></div><details class="math-secondary"><summary>Cálculo matemático de edad corregida</summary><div class="age-block"><p>${r.state === 'before-term' ? 'Aún no alcanza la fecha equivalente a 40 semanas' : 'Edad corregida matemática'}</p>${ageMarkup}</div></details>`
-        : `<div class="age-block"><p class="result-label">${r.state === 'corrected' ? 'EDAD CORREGIDA' : title}</p>${ageMarkup}</div>`
+        : `<div class="age-block"><p class="result-label">${r.state === 'corrected' ? 'EDAD CORREGIDA' : r.state === 'not-preterm' ? 'EDAD CRONOLÓGICA' : r.state === 'before-term' ? 'ANTES DE 40 SEMANAS' : 'ALCANZA HOY LAS 40 SEMANAS'}</p>${ageMarkup}</div>`
     }
+    <details class="result-details" ${matchMedia('(max-width: 760px)').matches ? '' : 'open'}><summary>Ver detalle del cálculo</summary><div><p class="result-explanation">${title}</p>
+    ${r.daysAssumed ? '<p class="assumption-note">Días no ingresados: se usaron semanas completas + 0 días.</p>' : ''}
     <dl class="result-metrics"><div><dt>Edad cronológica</dt><dd>${weekDays(r.chronological)}<small>${r.chronological} días · ${calendarText(r.chronologicalCalendar)}</small></dd></div><div><dt>Tiempo descontado por prematuridad</dt><dd>${r.correction} días${r.correction ? `<small>${weekDays(r.correction)}</small>` : '<small>No se aplica corrección</small>'}</dd></div>${r.equivalent !== null ? `<div><dt>Fecha equivalente a 40 semanas (estimada)</dt><dd>${formatDate(r.equivalent)}</dd></div>` : ''}</dl>
     <div class="input-summary"><h3>Datos utilizados</h3><dl><div><dt>Nacimiento</dt><dd>${formatDate(r.birth)}</dd></div><div><dt>Gestación</dt><dd>${Number(r.input.weeks)} semanas + ${Number(r.input.days)} días</dd></div><div><dt>Evaluación</dt><dd>${formatDate(r.evaluation)}</dd></div></dl></div>
-    <details class="method"><summary>Cómo se calcula</summary><p>${methodText(r)}</p><p>${CALENDAR_CONVENTION}</p></details>`;
+    <details class="method"><summary>Cómo se calcula</summary><p>${methodText(r)}</p><p>${CALENDAR_CONVENTION}</p></details></div></details>`;
   container.classList.remove('result-enter');
   void container.offsetWidth;
   container.classList.add('result-enter');
