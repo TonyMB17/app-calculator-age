@@ -1080,32 +1080,30 @@
       padding-block: 8px;
     }
   }
-  @layer compact {
-    @media screen and (max-width: 360px) and (max-height: 600px) {
-      .site-header {
-        min-height: 40px;
-      }
-      .calculator-grid {
-        gap: 4px;
-      }
-      .calculator-grid .card {
-        padding-block: 4px;
-      }
-      #age-form {
-        gap: 2px;
-      }
-      .age-block {
-        padding-block: 3px;
-      }
-      .result-card .result-metrics > div {
-        padding-block: 0;
-      }
-      .result-card .result-actions {
-        margin-top: 2px;
-      }
-      .clinical-note {
-        padding-block: 0;
-      }
+  @media screen and (max-width: 360px) and (max-height: 600px) {
+    .site-header {
+      min-height: 40px;
+    }
+    .calculator-grid {
+      gap: 4px;
+    }
+    .calculator-grid .card {
+      padding-block: 4px;
+    }
+    #age-form {
+      gap: 2px;
+    }
+    .age-block {
+      padding-block: 3px;
+    }
+    .result-card .result-metrics > div {
+      padding-block: 0;
+    }
+    .result-card .result-actions {
+      margin-top: 2px;
+    }
+    .clinical-note {
+      padding-block: 0;
     }
   }
   @media screen and (min-width: 360px) and (max-width: 760px) and (min-height: 900px) {
