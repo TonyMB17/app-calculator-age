@@ -1,0 +1,806 @@
+@layer base, layout, components, motion, print;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #243b3c;
+    background: #f6f7f4;
+    font-synthesis: none;
+    font-size: 16px;
+    --accent: #175b59;
+    --accent-hover: #104845;
+    --muted: #5d6e6e;
+    --line: #dce3df;
+    --surface: #fff;
+    --soft: #edf4f0;
+    --error: #a22929;
+    --radius: 18px;
+    --space: 8px;
+    --shadow: 0 4px 24px #263f3805;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    line-height: 1.5;
+  }
+  button,
+  input,
+  textarea {
+    font: inherit;
+  }
+  button,
+  a,
+  input,
+  summary,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: default;
+  }
+  a {
+    color: var(--accent);
+    text-underline-offset: 4px;
+  }
+  :focus-visible {
+    outline: 3px solid #237b78;
+    outline-offset: 4px;
+  }
+  [hidden] {
+    display: none !important;
+  }
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+  svg {
+    flex-shrink: 0;
+  }
+  button svg,
+  .privacy svg,
+  .clinical-note svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 16px;
+    z-index: 2;
+    background: white;
+    padding: 12px;
+  }
+  .skip-link:focus {
+    top: 16px;
+  }
+}
+@layer layout {
+  .wrap {
+    width: min(1100px, calc(100% - 64px));
+    margin-inline: auto;
+  }
+  .site-header {
+    min-height: 106px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--accent);
+    font-size: 19px;
+    font-weight: 650;
+    letter-spacing: -0.4px;
+  }
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+  }
+  .brand-subtitle {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-top: 2px;
+  }
+  .header-note {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .intro {
+    padding: 32px 0 24px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: clamp(30px, 3.5vw, 42px);
+    font-weight: 570;
+    line-height: 1.14;
+    letter-spacing: -1.5px;
+  }
+  .intro > p:last-child {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .calculator-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.12fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 28px;
+    min-width: 0;
+  }
+  .result-card {
+    border-top: 3px solid var(--accent);
+    padding-top: 26px;
+  }
+  .section-heading {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 28px;
+  }
+  .step {
+    font-size: 11px;
+    font-weight: 650;
+    color: var(--accent);
+    background: var(--soft);
+    border: 1px solid #d9e7df;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  h2 {
+    font-size: 19px;
+    font-weight: 620;
+    letter-spacing: -0.4px;
+  }
+  .section-heading p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 3px;
+  }
+  .result-tag {
+    margin-left: auto;
+    color: var(--muted);
+    font-size: 11px;
+    white-space: nowrap;
+    margin-top: 7px;
+  }
+  footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding-block: 24px 32px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  @media (max-width: 760px) {
+    .wrap {
+      width: calc(100% - 32px);
+    }
+    .site-header {
+      min-height: 88px;
+    }
+    .header-note {
+      display: none;
+    }
+    .intro {
+      padding: 32px 0 24px;
+    }
+    .desktop-break {
+      display: none;
+    }
+    h1 {
+      letter-spacing: -1px;
+    }
+    .calculator-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .card {
+      padding: 22px;
+    }
+    .brand-subtitle {
+      font-size: 11px;
+    }
+    .result-tag {
+      white-space: normal;
+      text-align: right;
+    }
+    #result-title {
+      scroll-margin-top: 20px;
+    }
+  }
+  @media (max-width: 360px) {
+    .card {
+      padding: 18px;
+    }
+    .brand {
+      gap: 9px;
+      font-size: 18px;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+    }
+  }
+}
+@layer components {
+  label,
+  legend {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  input,
+  textarea {
+    width: 100%;
+    min-width: 0;
+    border: 1px solid #879997;
+    border-radius: 8px;
+    background: #fff;
+    color: #243b3c;
+    padding: 11px 12px;
+    min-height: 48px;
+    font-variant-numeric: tabular-nums;
+  }
+  input[type='date'] {
+    appearance: auto;
+    min-height: 48px;
+  }
+  input[aria-invalid='true'] {
+    border: 2px solid var(--error);
+  }
+  .help {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 7px;
+    line-height: 1.5;
+  }
+  .field-error {
+    color: var(--error);
+    font-size: 13px;
+    margin-top: 7px;
+  }
+  .error-summary {
+    border-left: 3px solid var(--error);
+    padding: 12px;
+    color: var(--error);
+    background: #fff5f4;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+  fieldset {
+    border: 0;
+    padding: 0;
+    margin: 22px 0;
+    min-width: 0;
+  }
+  legend {
+    padding: 0;
+    margin-bottom: 12px;
+  }
+  .gestation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .gestation-grid label {
+    color: var(--muted);
+    font-weight: 400;
+    font-size: 13px;
+  }
+  .primary {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border: 0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  @media (hover: hover) {
+    .primary:hover {
+      background: var(--accent-hover);
+    }
+    .result-actions button:not(:disabled):hover {
+      background: var(--soft);
+    }
+    summary:hover {
+      color: var(--accent-hover);
+    }
+  }
+  .primary:active {
+    transform: translateY(1px);
+  }
+  .privacy {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 18px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .privacy svg {
+    width: 15px;
+    height: 15px;
+  }
+  #result-content {
+    min-height: 365px;
+  }
+  .empty-state {
+    text-align: center;
+    min-height: 365px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 10px 32px;
+  }
+  .empty-state svg {
+    width: 64px;
+    height: 64px;
+    stroke: #67847b;
+    stroke-width: 1.5;
+    margin-bottom: 24px;
+  }
+  .empty-state h3 {
+    font-size: 19px;
+    font-weight: 550;
+    letter-spacing: -0.3px;
+  }
+  .empty-state p {
+    color: var(--muted);
+    max-width: 300px;
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .empty-state span {
+    margin-top: 28px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .result-actions {
+    border-top: 1px solid var(--line);
+    padding-top: 16px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+  }
+  .result-actions button {
+    border: 1px solid #9aafaa;
+    color: var(--accent);
+    background: white;
+    border-radius: 7px;
+    padding: 8px 10px;
+    min-height: 44px;
+    font-size: 12px;
+    font-weight: 550;
+  }
+  .result-actions button:disabled {
+    color: #63716e;
+    border-color: #d6deda;
+    background: #f5f7f5;
+  }
+  .result-actions #reset {
+    margin-left: auto;
+    border-color: transparent;
+  }
+  #reset span {
+    margin-left: 4px;
+  }
+  .status {
+    color: var(--accent);
+    font-size: 14px;
+    margin-top: 16px;
+  }
+  .status:empty {
+    margin-top: 0;
+  }
+  .clinical-note {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    color: #506360;
+    padding: 22px 0;
+    font-size: 12px;
+    max-width: 860px;
+  }
+  .clinical-note svg {
+    margin-top: 1px;
+    width: 17px;
+    height: 17px;
+  }
+  .references {
+    border-block: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 13px;
+  }
+  summary {
+    cursor: pointer;
+    padding: 14px 0;
+    font-weight: 550;
+    color: var(--accent);
+    min-height: 44px;
+  }
+  .references > div {
+    padding: 0 0 20px;
+    max-width: 900px;
+  }
+  .references h2 {
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+  .references p + p {
+    margin-top: 12px;
+  }
+  .references li + li {
+    margin-top: 8px;
+  }
+  .age-block {
+    padding: 22px;
+    border-radius: 10px;
+    background: var(--soft);
+    margin-bottom: 24px;
+  }
+  .result-label {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.6;
+  }
+  .age-value {
+    color: var(--accent);
+    font-size: clamp(25px, 2.7vw, 33px);
+    font-weight: 600;
+    line-height: 1.25;
+    margin-top: 8px;
+    letter-spacing: -0.9px;
+    font-variant-numeric: tabular-nums;
+  }
+  .calendar-age {
+    color: #49635a;
+    font-size: 12px;
+    margin-top: 12px;
+  }
+  .calendar-age span {
+    display: block;
+    margin-top: 2px;
+  }
+  dl {
+    margin: 0;
+  }
+  .result-metrics > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  dt {
+    color: var(--muted);
+    font-size: 12px;
+  }
+  dd {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 550;
+    font-variant-numeric: tabular-nums;
+  }
+  dd small {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 4px;
+  }
+  .input-summary {
+    margin-top: 22px;
+  }
+  .input-summary h3 {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .input-summary dl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+  }
+  .input-summary dd {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .method {
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .method p {
+    margin: 0 0 12px;
+    line-height: 1.7;
+  }
+  .interval-notice {
+    background: var(--soft);
+    border-left: 3px solid var(--accent);
+    padding: 18px;
+  }
+  .interval-notice h3 {
+    font-size: 18px;
+    font-weight: 550;
+  }
+  .interval-notice p {
+    font-size: 13px;
+    margin-top: 10px;
+    color: var(--muted);
+  }
+  .math-secondary {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+  .math-secondary .age-value {
+    font-size: 23px;
+  }
+  #copy-fallback {
+    margin-top: 20px;
+  }
+  textarea {
+    font-size: 13px;
+    resize: vertical;
+  }
+  @media (max-width: 360px) {
+    .age-block {
+      padding: 16px;
+    }
+    .result-metrics > div {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+    .gestation-grid {
+      gap: 12px;
+    }
+    .result-actions #reset {
+      margin-left: 0;
+    }
+  }
+}
+@layer motion {
+  .intro,
+  .calculator-grid {
+    animation: enter 200ms ease-out;
+  }
+  .result-enter {
+    animation: enter 200ms ease-out;
+  }
+  button,
+  input {
+    transition:
+      background-color 150ms,
+      border-color 150ms,
+      transform 150ms;
+  }
+  @keyframes enter {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+    .primary:active {
+      transform: none;
+    }
+  }
+}
+@layer print {
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+  @media print {
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+    body {
+      color: #000;
+      background: #fff;
+      font-size: 10pt;
+      line-height: 1.35;
+    }
+    .wrap {
+      width: 100%;
+    }
+    .site-header {
+      min-height: 0;
+      padding-bottom: 8pt;
+    }
+    .brand {
+      color: #000;
+    }
+    .intro,
+    .form-card,
+    .result-actions,
+    #copy-fallback,
+    .status,
+    .header-note,
+    footer,
+    .skip-link {
+      display: none !important;
+    }
+    .calculator-grid {
+      display: block;
+    }
+    .result-card {
+      border: 0;
+      padding: 10pt 0 0;
+      box-shadow: none;
+    }
+    .result-card .step,
+    .result-tag,
+    .section-heading p {
+      display: none;
+    }
+    .section-heading {
+      margin-bottom: 8pt;
+    }
+    #result-content {
+      min-height: 0;
+    }
+    .age-block,
+    .interval-notice {
+      background: transparent;
+      border: 1px solid #777;
+      padding: 8pt;
+      margin-bottom: 6pt;
+    }
+    .age-value {
+      font-size: 20pt;
+      color: #000;
+    }
+    .result-metrics > div {
+      padding: 5pt 0;
+      break-inside: avoid;
+    }
+    .input-summary {
+      margin-top: 6pt;
+    }
+    .method,
+    .references,
+    .clinical-note {
+      font-size: 9pt;
+      color: #000;
+    }
+    .clinical-note {
+      padding: 6pt 0;
+    }
+    .method summary,
+    .references summary,
+    .math-secondary summary {
+      padding: 4pt 0;
+      color: #000;
+    }
+    details::details-content {
+      content-visibility: visible !important;
+      display: block !important;
+      height: auto !important;
+    }
+    details > :not(summary) {
+      display: block !important;
+    }
+    .references {
+      border: 0;
+    }
+    .references ul {
+      margin-block: 6pt;
+    }
+    .references p + p {
+      margin-top: 6pt;
+    }
+    .method {
+      margin-top: 6pt;
+    }
+    .method p {
+      line-height: 1.35;
+      margin-bottom: 6pt;
+    }
+    .input-summary h3 {
+      margin-bottom: 6pt;
+    }
+    .references li + li {
+      margin-top: 3pt;
+    }
+    .references > div {
+      padding-bottom: 0;
+    }
+    a {
+      color: #000;
+    }
+    .references a::after {
+      content: ' (' attr(href) ')';
+      overflow-wrap: anywhere;
+      font-size: 8pt;
+    }
+    .references h2 {
+      font-size: 10pt;
+      margin-bottom: 6pt;
+    }
+    .brand-subtitle,
+    dt,
+    dd small,
+    .calendar-age,
+    .result-label {
+      color: #222;
+    }
+    .empty-state {
+      min-height: 0;
+      padding: 10pt 0;
+    }
+    .empty-state svg,
+    .empty-state span {
+      display: none;
+    }
+  }
+}

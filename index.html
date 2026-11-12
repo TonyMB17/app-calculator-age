@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#175b59" />
+    <meta
+      name="description"
+      content="Calculadora de edad corregida para el seguimiento del niño prematuro. Cálculo privado en tu navegador, para personal de salud."
+    />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <title>Edad corregida · Calculadora para personal de salud</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#calculator">Ir a la calculadora</a>
+    <header class="site-header wrap">
+      <a class="brand" href="./">
+        <svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <rect width="40" height="40" rx="12" fill="currentColor" />
+          <path
+            d="M13 13v14h14M13 22l6-6 5 3 5-7"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span
+          >Edad corregida<span class="brand-subtitle"
+            >Apoyo al seguimiento del niño prematuro</span
+          ></span
+        >
+      </a>
+      <span class="header-note">Para personal de salud</span>
+    </header>
+
+    <main class="wrap" id="calculator">
+      <div class="intro">
+        <p class="eyebrow">APOYO AL SEGUIMIENTO</p>
+        <h1>Calculadora de edad corregida</h1>
+        <p>Ingresa los datos del nacimiento y revisa la edad a la fecha de evaluación.</p>
+      </div>
+      <div class="calculator-grid">
+        <section class="card form-card" aria-labelledby="form-title">
+          <div class="section-heading">
+            <span class="step">01</span>
+            <div>
+              <h2 id="form-title">Datos del cálculo</h2>
+              <p>Todos los campos son obligatorios.</p>
+            </div>
+          </div>
+          <p id="startup-notice" class="error-summary">
+            Se necesita JavaScript para calcular. Si este mensaje permanece, verifica que esté
+            activado y vuelve a cargar la página. Las entradas se procesan exclusivamente en tu
+            navegador.
+          </p>
+          <form id="age-form" novalidate autocomplete="off">
+            <div id="error-summary" class="error-summary" hidden></div>
+            <div class="field">
+              <label for="birth">Fecha de nacimiento</label
+              ><input id="birth" type="date" required aria-describedby="birth-help birth-error" />
+              <p id="birth-help" class="help">Día / mes / año</p>
+              <p id="birth-error" class="field-error" hidden></p>
+            </div>
+            <fieldset>
+              <legend>Edad gestacional al nacer</legend>
+              <div class="gestation-grid">
+                <div class="field">
+                  <label for="weeks">Semanas completas</label
+                  ><input
+                    id="weeks"
+                    type="number"
+                    inputmode="numeric"
+                    step="1"
+                    required
+                    aria-describedby="gestation-help weeks-error"
+                  />
+                  <p id="weeks-error" class="field-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="days">Días adicionales</label
+                  ><input
+                    id="days"
+                    type="number"
+                    inputmode="numeric"
+                    step="1"
+                    required
+                    aria-describedby="gestation-help days-error"
+                  />
+                  <p id="days-error" class="field-error" hidden></p>
+                </div>
+              </div>
+              <p id="gestation-help" class="help">
+                Ejemplo: 32 semanas y 4 días. Si desconoces los días, verifica el registro antes de
+                calcular.
+              </p>
+            </fieldset>
+            <div class="field evaluation">
+              <label for="evaluation">Fecha de evaluación</label
+              ><input
+                id="evaluation"
+                type="date"
+                required
+                aria-describedby="evaluation-help evaluation-error"
+              />
+              <p id="evaluation-help" class="help">Hoy en Lima, o una fecha anterior.</p>
+              <p id="evaluation-error" class="field-error" hidden></p>
+            </div>
+            <button class="primary" type="submit" disabled>
+              Calcular edad corregida
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5" /></svg>
+            </button>
+          </form>
+          <p class="privacy">
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <rect x="5" y="8" width="10" height="9" rx="2" />
+              <path d="M7 8V5a3 3 0 0 1 6 0v3" /></svg
+            >Los datos se calculan aquí. No se envían ni se guardan.
+          </p>
+        </section>
+
+        <section class="card result-card" aria-labelledby="result-title">
+          <div class="section-heading">
+            <span class="step">02</span>
+            <div>
+              <h2 id="result-title" tabindex="-1">Resultado</h2>
+              <p>El tiempo, puesto en contexto.</p>
+            </div>
+            <span class="result-tag" id="result-tag">Por calcular</span>
+          </div>
+          <div id="result-content">
+            <div class="empty-state">
+              <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                <rect x="12" y="15" width="40" height="39" rx="6" />
+                <path d="M12 27h40M23 10v11m18-11v11M24 36h6m5 0h6m-17 9h6" />
+              </svg>
+              <h3>Todo empieza con tres datos</h3>
+              <p>
+                Ingresa el nacimiento, la gestación y la fecha de evaluación para ver la edad
+                corregida y cómo se obtiene.
+              </p>
+              <span>Sin registros ni datos de identificación</span>
+            </div>
+          </div>
+          <div class="result-actions">
+            <button type="button" id="copy" disabled>Copiar resultado</button
+            ><button type="button" id="print" disabled>Imprimir</button
+            ><button type="button" id="reset">
+              Nuevo cálculo <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+          <div id="copy-fallback" hidden>
+            <label for="copy-text">Texto para copiar</label
+            ><textarea id="copy-text" rows="10" readonly></textarea>
+          </div>
+        </section>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <aside class="clinical-note">
+        <svg viewBox="0 0 20 20" aria-hidden="true">
+          <circle cx="10" cy="10" r="7" />
+          <path d="M10 9v5m0-8v.5" />
+        </svg>
+        <p>
+          Herramienta de apoyo para personal de salud. Interpreta el resultado según la evaluación
+          clínica y el protocolo de tu establecimiento.
+        </p>
+      </aside>
+      <details class="references" id="references">
+        <summary>Referencias, alcance y versión del método</summary>
+        <div>
+          <h2>Un apoyo para el cálculo</h2>
+          <p>
+            Método v1.0.0 · Sin diagnóstico ni recomendaciones de tratamiento. La prematuridad se
+            define antes de 37 semanas completas. Solo entonces se descuenta el tiempo faltante para
+            40 semanas. El límite operativo de seguimiento es el segundo aniversario del nacimiento
+            (24 meses cronológicos).
+          </p>
+          <p>
+            Rango soportado: 20–42 semanas y 0–6 días. Es un límite de esta interfaz, no una
+            afirmación de viabilidad. No sustituye una norma local ni implica validación
+            institucional.
+          </p>
+          <ul>
+            <li>
+              <a href="https://www.who.int/news-room/fact-sheets/detail/preterm-birth"
+                >OMS: Preterm birth</a
+              >
+              — definición de prematuridad.
+            </li>
+            <li>
+              <a
+                href="https://www.healthychildren.org/English/ages-stages/baby/preemie/Pages/Corrected-Age-For-Preemies.aspx"
+                >American Academy of Pediatrics: Corrected Age For Preemies</a
+              >
+              — cálculo y seguimiento del desarrollo.
+            </li>
+            <li>
+              <a
+                href="https://www.dcyf.wa.gov/sites/default/files/pdf/esit/AgeCorrect-PrematureGuide.pdf"
+                >Washington DCYF: Age Correction in Evaluation and Assessment</a
+              >
+              — guía revisada en junio de 2020; intervalo de 24 meses cronológicos.
+            </li>
+          </ul>
+          <p>
+            Referencias consultadas el 12/11/2026. Las convenciones matemáticas de esta aplicación
+            están separadas de su interpretación clínica.
+          </p>
+        </div>
+      </details>
+    </main>
+    <footer class="wrap">
+      <span>Edad corregida</span><span>Cálculo local · Método v1.0.0</span>
+    </footer>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
