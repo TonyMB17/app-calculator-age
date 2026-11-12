@@ -98,12 +98,20 @@ test('vista móvil sin scroll y controles visibles', async ({ page }) => {
   ]) {
     await page.setViewportSize({ width, height });
     await fillCase(page);
-    expect(await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight)).toBe(
-      true,
-    );
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
-      true,
-    );
+    const documentSize = await page.evaluate(() => ({
+      height: document.documentElement.scrollHeight,
+      viewportHeight: innerHeight,
+      width: document.documentElement.scrollWidth,
+      viewportWidth: innerWidth,
+    }));
+    expect(
+      documentSize.height,
+      `${width}x${height}: document height ${documentSize.height}, viewport ${documentSize.viewportHeight}`,
+    ).toBeLessThanOrEqual(documentSize.viewportHeight);
+    expect(
+      documentSize.width,
+      `${width}x${height}: document width ${documentSize.width}, viewport ${documentSize.viewportWidth}`,
+    ).toBeLessThanOrEqual(documentSize.viewportWidth);
     await expect(page.locator('.age-value')).toBeInViewport();
     await expect(page.getByRole('button', { name: 'Nuevo cálculo' })).toBeInViewport();
     await expect(page.getByRole('link', { name: 'Designed by Tony' })).toBeInViewport();
