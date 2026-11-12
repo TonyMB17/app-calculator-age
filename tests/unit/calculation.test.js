@@ -53,8 +53,6 @@ describe('cálculo', () => {
     [{ evaluation: '2026-01-29' }, 28, 56, -28, 'before-term'],
     [{ evaluation: '2026-02-26' }, 56, 56, 0, 'at-term'],
     [{ weeks: '36', days: '6', evaluation: '2026-01-29' }, 28, 22, 6, 'corrected'],
-    [{ weeks: '37' }, 84, 0, null, 'not-preterm'],
-    [{ weeks: '39' }, 84, 0, null, 'not-preterm'],
     [{ evaluation: '2026-01-01' }, 0, 56, -56, 'before-term'],
   ])('resuelve %j', (overrides, chronological, correction, corrected, state) => {
     expect(calculate(input(overrides), today)).toMatchObject({
@@ -83,7 +81,8 @@ describe('validación', () => {
     ['birth', '2026-02-31'],
     ['birth', '2026-11-13'],
     ['weeks', '19'],
-    ['weeks', '43'],
+    ['weeks', '37'],
+    ['weeks', '42'],
     ['weeks', '32.4'],
     ['weeks', ''],
     ['days', '7'],
@@ -98,7 +97,7 @@ describe('validación', () => {
   });
   it('acepta los extremos operativos', () => {
     expect(validate(input({ weeks: '20', days: '0' }), today)).toEqual({});
-    expect(validate(input({ weeks: '42', days: '6' }), today)).toEqual({});
+    expect(validate(input({ weeks: '36', days: '6' }), today)).toEqual({});
   });
   it.each(['', undefined])('calcula solo con semanas cuando se omiten los días: %s', (days) => {
     const result = calculate(input({ days }), today);

@@ -1,30 +1,19 @@
 import { expect, it } from 'vitest';
-import { calendarText } from '../../src/ui/results.js';
-import { exportText } from '../../src/ui/export.js';
+import { monthDays, resultSummary } from '../../src/ui/results.js';
 import { calculate } from '../../src/domain/corrected-age.js';
 
-it('presenta unidades singulares legibles', () => {
-  expect(calendarText({ years: 1, months: 1, days: 1 })).toBe('1 año, 1 mes y 1 día calendario');
+it.each([
+  [{ years: 0, months: 1, days: 1 }, '1 mes y 1 día'],
+  [{ years: 0, months: 0, days: 0 }, '0 meses y 0 días'],
+  [{ years: 1, months: 2, days: 4 }, '14 meses y 4 días'],
+])('presenta meses calendario completos y días: %j', (value, expected) => {
+  expect(monthDays(value)).toBe(expected);
 });
 
-it('explicita la suposición de cero días al copiar un cálculo solo con semanas', () => {
-  const result = calculate(
-    { birth: '2026-01-01', weeks: '32', days: '', evaluation: '2026-03-26' },
+it('anuncia la edad corregida en meses y días', () => {
+  const r = calculate(
+    { birth: '2026-01-01', weeks: '32', days: '4', evaluation: '2026-03-26' },
     '2026-11-12',
   );
-  expect(exportText(result)).toContain('Días adicionales no ingresados');
-  expect(exportText(result)).toContain('0 días adicionales');
-});
-
-it('incluye datos y versión en la exportación de un caso sin corrección', () => {
-  const text = exportText(
-    calculate(
-      { birth: '2026-01-01', weeks: '39', days: '0', evaluation: '2026-03-26' },
-      '2026-11-12',
-    ),
-  );
-  expect(text).toContain('No corresponde corrección');
-  expect(text).toContain('84 días');
-  expect(text).toContain('Método v1.1.0');
-  expect(text).not.toContain('Fecha equivalente a 40 semanas (estimada):');
+  expect(resultSummary(r)).toBe('Edad corregida: 1 mes y 4 días');
 });

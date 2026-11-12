@@ -1,10 +1,10 @@
 import { addMonths, calendarDifference, parseDate, todayInLima } from './dates.js';
 
-export const METHOD_VERSION = '1.1.0';
+export const METHOD_VERSION = '1.2.0';
 // UI support limits; not clinical viability limits. Review with any local protocol.
 export const LIMITS = Object.freeze({
   minWeeks: 20,
-  maxWeeks: 42,
+  maxWeeks: 36,
   minDays: 0,
   maxDays: 6,
   pretermDays: 259,
@@ -53,10 +53,9 @@ export function calculate(input, today = todayInLima()) {
   const normalizedInput = { ...input, days: daysAssumed ? '0' : input.days };
   const gestational = Number(input.weeks) * 7 + Number(normalizedInput.days);
   const chronological = evaluation - birth;
-  const preterm = gestational < LIMITS.pretermDays;
-  const correction = preterm ? LIMITS.termDays - gestational : 0;
-  const equivalent = preterm ? birth + correction : null;
-  const corrected = preterm ? chronological - correction : null;
+  const correction = LIMITS.termDays - gestational;
+  const equivalent = birth + correction;
+  const corrected = chronological - correction;
   return {
     input: normalizedInput,
     daysAssumed,
@@ -69,15 +68,8 @@ export function calculate(input, today = todayInLima()) {
     corrected,
     postmenstrual: gestational + chronological,
     chronologicalCalendar: calendarDifference(birth, evaluation),
-    correctedCalendar:
-      preterm && corrected >= 0 ? calendarDifference(equivalent, evaluation) : null,
-    outsideInterval: preterm && evaluation >= addMonths(birth, LIMITS.followUpMonths),
-    state: !preterm
-      ? 'not-preterm'
-      : corrected < 0
-        ? 'before-term'
-        : corrected === 0
-          ? 'at-term'
-          : 'corrected',
+    correctedCalendar: corrected >= 0 ? calendarDifference(equivalent, evaluation) : null,
+    outsideInterval: evaluation >= addMonths(birth, LIMITS.followUpMonths),
+    state: corrected < 0 ? 'before-term' : corrected === 0 ? 'at-term' : 'corrected',
   };
 }

@@ -42,7 +42,7 @@
             <span class="step">01</span>
             <div>
               <h2 id="form-title">Datos del cálculo</h2>
-              <p>Días adicionales: opcional.</p>
+              <p>Solo para niños prematuros.</p>
             </div>
           </div>
           <p id="startup-notice" class="error-summary">
@@ -55,7 +55,7 @@
             <div class="field">
               <label for="birth">Fecha de nacimiento</label
               ><input id="birth" type="date" required aria-describedby="birth-help birth-error" />
-              <p id="birth-help" class="help">Día / mes / año</p>
+              <p id="birth-help" class="help">El selector usa el formato de tu navegador.</p>
               <p id="birth-error" class="field-error" hidden></p>
             </div>
             <fieldset>
@@ -63,13 +63,9 @@
               <div class="gestation-grid">
                 <div class="field">
                   <label for="weeks">Semanas completas</label>
-                  <select
-                    id="weeks"
-                    required
-                    aria-describedby="gestation-help gestation-status weeks-error"
-                  >
+                  <select id="weeks" required aria-describedby="gestation-help weeks-error">
                     <option value="">Selecciona</option>
-                    <optgroup label="29–36 semanas · Prematuro">
+                    <optgroup label="20–36 semanas · Prematuro">
                       <option value="20">20 semanas</option>
                       <option value="21">21 semanas</option>
                       <option value="22">22 semanas</option>
@@ -88,37 +84,24 @@
                       <option value="35">35 semanas</option>
                       <option value="36">36 semanas</option>
                     </optgroup>
-                    <optgroup label="37–42 semanas · Sin corrección por prematuridad">
-                      <option value="37">37 semanas</option>
-                      <option value="38">38 semanas</option>
-                      <option value="39">39 semanas</option>
-                      <option value="40">40 semanas</option>
-                      <option value="41">41 semanas</option>
-                      <option value="42">42 semanas</option>
-                    </optgroup>
-                    <optgroup label="20–28 semanas · Prematuro">
-                      
-                    </optgroup>
                   </select>
                   <p id="weeks-error" class="field-error" hidden></p>
                 </div>
                 <div class="field">
-                  <label for="days">Días adicionales</label
-                  ><input
-                    id="days"
-                    type="number"
-                    inputmode="numeric"
-                    step="1"
-                    placeholder="0"
-                    aria-describedby="gestation-help days-error"
-                  />
+                  <label for="days">Días adicionales</label>
+                  <select id="days" aria-describedby="gestation-help days-error">
+                    <option value="0">0 días</option>
+                    <option value="1">1 día</option>
+                    <option value="2">2 días</option>
+                    <option value="3">3 días</option>
+                    <option value="4">4 días</option>
+                    <option value="5">5 días</option>
+                    <option value="6">6 días</option>
+                  </select>
                   <p id="days-error" class="field-error" hidden></p>
                 </div>
               </div>
-              <p id="gestation-help" class="help">Días vacíos = 0 días adicionales.</p>
-              <p id="gestation-status" class="gestation-status" aria-live="polite">
-                Selecciona las semanas de gestación.
-              </p>
+              <p id="gestation-help" class="help">Máximo: 36 semanas y 6 días.</p>
             </fieldset>
             <div class="field evaluation">
               <label for="evaluation">Fecha de evaluación</label
@@ -149,7 +132,7 @@
             <span class="step">02</span>
             <div>
               <h2 id="result-title" tabindex="-1">Resultado</h2>
-              <p>El tiempo, puesto en contexto.</p>
+              <p>Meses y días calendario.</p>
             </div>
             <span class="result-tag" id="result-tag">Por calcular</span>
           </div>
@@ -162,22 +145,12 @@
               <h3>Todo empieza con tres datos</h3>
               <p>
                 Ingresa el nacimiento, la gestación y la fecha de evaluación para ver la edad
-                corregida y cómo se obtiene.
+                corregida.
               </p>
               <span>Sin registros ni datos de identificación</span>
             </div>
           </div>
-          <div class="result-actions">
-            <button type="button" id="copy" disabled>Copiar resultado</button
-            ><button type="button" id="print" disabled>Imprimir</button
-            ><button type="button" id="reset">
-              Nuevo cálculo <span aria-hidden="true">↗</span>
-            </button>
-          </div>
-          <div id="copy-fallback" hidden>
-            <label for="copy-text">Texto para copiar</label
-            ><textarea id="copy-text" rows="10" readonly></textarea>
-          </div>
+          <div class="result-actions"><button type="button" id="reset">Nuevo cálculo</button></div>
         </section>
       </div>
       <p id="status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
@@ -204,13 +177,13 @@
         <div>
           <h2>Un apoyo para el cálculo</h2>
           <p>
-            Método v1.1.0 · Sin diagnóstico ni recomendaciones de tratamiento. La prematuridad se
+            Método v1.2.0 · Sin diagnóstico ni recomendaciones de tratamiento. La prematuridad se
             define antes de 37 semanas completas. Solo entonces se descuenta el tiempo faltante para
             40 semanas. El límite operativo de seguimiento es el segundo aniversario del nacimiento
             (24 meses cronológicos).
           </p>
           <p>
-            Rango soportado: 20–42 semanas y 0–6 días. Es un límite de esta interfaz, no una
+            Rango soportado: 20–36 semanas y 0–6 días. Es un límite de esta interfaz, no una
             afirmación de viabilidad. No sustituye una norma local ni implica validación
             institucional.
           </p>
@@ -243,7 +216,7 @@
         </div>
       </details>
       <footer>
-        <span>Cálculo local · Método v1.1.0</span
+        <span>Cálculo local · Método v1.2.0</span
         ><a href="https://github.com/TonyMB17" target="_blank" rel="noopener noreferrer"
           >Designed by Tony</a
         >

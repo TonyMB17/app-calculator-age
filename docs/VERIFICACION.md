@@ -1,3 +1,13 @@
+# Actualización v1.2.0 — 12/11/2026
+
+Solicitud vigente: selectores solo de prematuros (20–36 semanas) y días 0–6, resultado principal en meses/días y equivalencias secundarias en semanas/días y días totales. Eliminados el resumen de entradas, «Cómo se calcula», copiar e imprimir, junto con su módulo y manejadores. Las pruebas de las funciones retiradas se reemplazaron por comprobaciones de ausencia de esas acciones y de la nueva presentación; las gestaciones desde 37 semanas se verifican ahora como entradas rechazadas.
+
+Se mantienen validación, fechas civiles, invalidación al editar, reinicio, cero exacto, edad posmenstrual antes de término y advertencia de intervalo. La convención de meses calendario no cambió; los años se expresan como meses totales. Se conservó la edición previa del selector, agregando la restricción solicitada.
+
+Verificación de esta versión: 42 pruebas unitarias y 30 comprobaciones de navegador aprobadas en Chromium, Firefox y WebKit. Incluyen rechazo de semanas desde 37 y de días fuera de 0–6, presentación calendario, ausencia de los bloques retirados, navegación con teclado, reinicio y privacidad. La vista principal se comprobó sin scroll vertical en 320×568, 375×667 y 390×844. Se inspeccionaron capturas de escritorio y móvil y se ejecutaron auditorías axe inicial/con resultado sin infracciones. Build y formato correctos; dependencias sin vulnerabilidades conocidas. JS + CSS: 6,45 KiB gzip. Se retiró también la repetición visible de las fechas bajo los campos; después se verificaron nuevamente los flujos de formulario afectados.
+
+La documentación siguiente es histórica; las funciones de copia e impresión y el rango que admitía nacimientos no prematuros ya no describen esta versión.
+
 # Actualización v1.1.0 — 12/11/2026
 
 Días opcionales (vacío equivale a cero adicionales, identificado en detalle y copia), selector agrupado de semanas, indicación sin corrección desde 37 semanas, logo USI y crédito del autor. La vista móvil principal usa revelado progresivo para mantener controles de 44 px e inputs de 16 px. Se comprueba el ajuste vertical en 320×568, 375×667 y 390×844; abrir detalles, errores o teclado puede requerir desplazamiento.
